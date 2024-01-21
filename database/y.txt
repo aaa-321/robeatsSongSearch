@@ -1,1 +1,7 @@
-[ "[1] Karakuri (Easy) - :Vibe_Rush:", "[4] Dark Dungeon (Easy) - :Rush_Flow:" ]
+{
+"title":"Dark Dungeon",
+"artist":"Ardolf",
+"element":"Rush_Flow",
+"difficulty":4,
+"mode":"Easy"
+}
