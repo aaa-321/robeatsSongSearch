@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+* {
+	box-sizing: border-box;
+	border-radius: 16px;
+}
+
+img {
+	width: 150px;
+	height: 150px;
+}
+
+#myInput {
+	background-position: 10px 12px;
+	background-repeat: no-repeat;
+	width: 99%;
+	font-size: 24px;
+	padding: 18px 20px 18px 40px;
+	border: 1px solid #ddd;
+	position: initial;
+}
+
+#songArea {
+	width: 69%;
+	height: 727px;
+	padding-right: 24px;
+	padding-left: 12px;
+	overflow: scroll;
+}
+
+#output {
+	background-position: 10px 12px;
+	background-repeat: no-repeat;
+	width: 100%;
+	border: 1px solid #ddd;
+	margin-bottom: 24px;
+    margin-top: 24px;
+    resize: none;
+}
+
+#myUL {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+#myUL li a {
+	border: 1px solid #ddd;
+	margin-top: -1px;
+	background-color: #f6f6f6;
+	padding: 12px;
+	text-decoration: none;
+	font-size: 18px;
+	color: black;
+	display: block;
+	width: 200px;
+	height: 200px;
+	margin-top: 24px;
+	margin-left: 24px;
+	text-align: center;
+	font-family: comic sans ms;
+}
+
+li {
+	float:left;
+}
+
+button {
+	border: 1px solid #ddd;
+	margin-top: -1px;
+	margin-right: -1px;
+	background-color: #f6f6f6;
+	padding: 18px;
+	text-decoration: none;
+	font-size: 18px;
+	color: black;
+	display: block;
+	border-radius: 8px;
+}
+
+#myUL li a:hover:not(.header), button:hover:not(.header) {
+	background-color: #eee;
+}
+
+
+
+*/
+
+</style>
+</head>
+<body>
+<h2 style="text-align: center;font-family: comic sans ms;">RoBeats Song Shop Search</h2>
+<div>
+
+<input type="text" id="myInput" onkeyup="songSearch()" placeholder="Search for songs.." title="Type in a name">
+
+<div class="mainContainer" style="display:flex;">
+<div id="songArea">
+
+
+<!--use a github database instead of hardcoding these song names in-->
+<!--have an image database in github as well-->
+
+<ul id="myUL">
+<li><a href="#" onmousedown="javascript:addSongToOutput('[1] Karakuri (Easy) - :Vibe_Rush:');"><img src="https://raw.githubusercontent.com/aaa-321/robeatsSongSearch/main/covers/Karakuri_(Easy).webp" alt="Karakuri (Easy)">Karakuri (Easy)</a></li>
+<li><a href="#">Karakuri (Normal)</a></li>
+<li><a href="#">Karakuri (Hard)</a></li>
+<li><a href="#">Dark Dungeon (Easy)</a></li>
+<li><a href="#">Dark Dungeon (Normal)</a></li>
+<li><a href="#">Dark Dungeon (Hard)</a></li>
+</ul>
+
+</div>
+
+<div style="width:30%;">
+
+<textarea id="output" rows="35" readonly></textarea>
+
+<div style="display:flex;">
+<button onclick="addJSONElement()">Add JSON Element (Debug)</button>
+<button onclick="clearOutput()">Clear</button>
+<button id="copyButton" onclick="copyOutputToClipboard()">Copy Output</button>
+</div>
+
+<div style="display:flex;">
+<button onclick="addOutput('\nhttp://discord.gg/EQ7HKZFfzr')">New Line + Discord</button>
+<button onclick="addOutput('')">New Line</button>
+<button onclick="addOutput('**SONG SHOP DAILY ROTATION - [01/20/2024]**')">SONG SHOP DAILY ROTATION</button>
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+const output = document.getElementById("output");
+
+function songSearch() {
+	var input, filter, ul, li, a, i, txtValue;
+	input = document.getElementById("myInput");
+	filter = input.value.toUpperCase();
+	ul = document.getElementById("myUL");
+	li = ul.getElementsByTagName("li");
+	for (i = 0; i < li.length; i++) {
+		a = li[i].getElementsByTagName("a")[0];
+		txtValue = a.textContent || a.innerText;
+		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+		} else {
+			li[i].style.display = "none";
+		}
+	}
+}
+
+function addSongToOutput(song) {
+	output.value += song + "\n";
+}
+
+function copyOutputToClipboard() {
+	output.select;
+	output.setSelectionRange(0, 99999);
+	navigator.clipboard.writeText(document.getElementById("output").value);
+	document.getElementById("copyButton").innerHTML= "Copied!";
+	setTimeout(function() {
+	document.getElementById("copyButton").innerHTML = "Copy Output";
+	}, 1524);
+}
+
+function clearOutput() {
+	document.getElementById("output").value = "";
+}
+
+function addOutput(text) {
+	document.getElementById("output").value += text + "\n";
+}
+
+
+
+const songJSON = 
+[
+{
+	"title":"Dark Dungeon",
+	"artist":"Ardolf",
+	"element":"Rush_Flow",
+	"difficulty":4,
+	"mode":"Easy",
+}, 
+{
+	"title":"Karakuri",
+	"artist":"seatrus feat. Hatsune Miku",
+	"element":"Vibe_Rush",
+	"difficulty":1,
+	"mode":"Easy",
+},
+];
+
+
+
+
+//fetch('https://raw.githubusercontent.com/aaa-321/robeatsSongSearch/main/database/songdata.json');
+
+function addJSONElement() {
+  let text = "";
+	for (let i in songJSON) {
+    text += '<li><a href="#" onmousedown="javascript:addSongToOutput(' + '\'[' + songJSON[i].difficulty + '] ' + songJSON[i].title + ' (' + songJSON[i].mode + ') - :' + songJSON[i].element + ':\');">' + songJSON[i].title + ' (' + songJSON[i].mode + ')</a></li>';
+    document.getElementById("myUL").innerHTML += text;
+  }
+}
+
+
+/*
+function addElement() {
+
+
+	const songTextDatabase = "https://raw.githubusercontent.com/aaa-321/robeatsSongSearch/main/database/master.txt";
+	const songTitle = "Karakuri (Easy)";
+	const missionSongData = "[1] Karakuri (Easy) - :Vibe_Rush:";
+    const baseImageURL = "https://raw.githubusercontent.com/aaa-321/robeatsSongSearch/main/covers/";
+    const imageData = "Karakuri_(Easy).webp";
+    
+    const dataOutput = "".concat("javascript:addSongToOutput(\'", missionSongData, "\')");
+    const imageOutput = "".concat(baseImageURL, imageData);
+    
+    const image = Object.assign(document.createElement("img"), {src:imageOutput, alt:songTitle});
+
+	const link = Object.assign(document.createElement("a"), {href:"javascript:addSongToOutput('[1] Karakuri (Easy) - :Vibe_Rush:');"});
+	const list = Object.assign(document.createElement("li"));
+	const element = document.getElementById("myUL");
+
+	element.appendChild(list);
+	list.appendChild(link);
+	link.appendChild(image);
+	image.insertAdjacentHTML("afterend", songTextDatabase);
+
+}
+*/
+</script>
+
+
+
+</body>
+</html>
