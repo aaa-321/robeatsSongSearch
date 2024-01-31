@@ -1,7 +1,16 @@
+[
 {
-"title":"Dark Dungeon",
-"artist":"Ardolf",
-"element":"Rush_Flow",
-"difficulty":4,
-"mode":"Easy"
-}
+	"title":"Dark Dungeon",
+	"artist":"Ardolf",
+	"element":"Rush_Flow",
+	"difficulty":4,
+	"mode":"Easy",
+}, 
+{
+	"title":"Karakuri",
+	"artist":"seatrus feat. Hatsune Miku",
+	"element":"Vibe_Rush",
+	"difficulty":1,
+	"mode":"Easy",
+},
+];
