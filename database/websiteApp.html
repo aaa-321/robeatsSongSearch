@@ -939,6 +939,7 @@ function addJSONElement() {
 	for (let i in songJSON) {
     text += '<li><a href="#" onmousedown="javascript:addSongToOutput(' + '\'[' + songJSON[i].difficulty + '] ' + songJSON[i].title + ' (' + songJSON[i].mode + ') - :' + songJSON[i].element + ':\');">' + songJSON[i].title + ' (' + songJSON[i].mode + ')</a></li>';
     document.getElementById("myUL").innerHTML += text;
+    text = "";
   }
 }
 
