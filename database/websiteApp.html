@@ -123,7 +123,10 @@ button {
 <div style="display:flex;">
 <button onclick="addOutput('\nhttp://discord.gg/EQ7HKZFfzr')">New Line + Discord</button>
 <button onclick="addOutput('')">New Line</button>
-<button onclick="addOutput('**SONG SHOP DAILY ROTATION - [01/20/2024]**')">SONG SHOP DAILY ROTATION</button>
+</div>
+
+<div style="display:flex;">
+<button onclick="addOutput('**SONG SHOP DAILY ROTATION - _date_**')">SONG SHOP DAILY ROTATION</button>
 </div>
 
 </div>
@@ -170,7 +173,12 @@ function clearOutput() {
 }
 
 function addOutput(text) {
-	document.getElementById("output").value += text + "\n";
+	let date = new Date();
+	let dateString = "";
+	let finalDateString = dateString.concat("[", date.getMonth() + 1, "/", date.getDate(), "/", date.getFullYear(), "]");
+	let n = text.replace(/_date_/i, finalDateString);
+
+	document.getElementById("output").value += n + "\n";
 }
 
 
