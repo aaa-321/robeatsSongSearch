@@ -154,9 +154,7 @@ function songSearch() {
 	}
 }
 
-function addSongToOutput(song) {
-	output.value += song + "\n";
-}
+
 
 function copyOutputToClipboard() {
 	output.select;
@@ -1897,7 +1895,24 @@ const songJSON =
 
 
 //fetch('https://raw.githubusercontent.com/aaa-321/robeatsSongSearch/main/database/songdata.json');
+function addJSONElement() {
+    let text = "";
+    for (let i in songJSON) {
+        text += `<li><a href="#" onmousedown="javascript:addSongToOutput(${i});">${songJSON[i].title} (${songJSON[i].mode})</a></li>`;
+    }
+    document.getElementById("myUL").innerHTML += text;
+}
 
+function addSongToOutput(i) {
+   let song = `[${songJSON[i].difficulty}] ${songJSON[i].title} (${songJSON[i].mode}) - :${songJSON[i].element}:\n`;
+   output.value += song;
+}
+
+addJSONElement()
+
+	
+
+/*
 function addJSONElement() {
   let text = "";
 	for (let i in songJSON) {
@@ -1908,7 +1923,11 @@ function addJSONElement() {
 }
 
 addJSONElement()
-/*
+
+function addSongToOutput(song) {
+	output.value += song + "\n";
+}
+
 function addElement() {
 
 
